@@ -22,9 +22,7 @@ build/
 .eslintcache
 
 # dotenv environment variables file
-.env
-.env.*.local
-**/.env
+
 
 # Next.js
 .next/
