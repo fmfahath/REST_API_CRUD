@@ -6,6 +6,6 @@ const productSchema = new mongoose.Schema({
     quantity: { type: Number, required: true }
 }, { timestamps: true });
 
-const productModle = mongoose.model('Product', productSchema)
+const productModel = mongoose.model('Product', productSchema)
 
-export default productModle;
+export default productModel;
