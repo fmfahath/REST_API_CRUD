@@ -4,7 +4,7 @@ import profile from '../assets/profile.jpg'
 
 const Navbar = () => {
     return (
-        <div className='w-full px-6 py-2 flex items-center justify-between shadow-md'>
+        <div className='w-full px-6 py-2 flex items-center justify-between shadow-md bg-white'>
             {/* logo */}
             <div>
                 <img src={logo} className='h-[50px] w-[50px] cursor-pointer' alt="logo" />
