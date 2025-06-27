@@ -1,15 +1,16 @@
-const { useContext, useState } = require("react");
+import { createContext, useState } from 'react'
 
 
-const AppContext = useContext()
+export const AppContext = createContext()
 
 export const AppContextProvider = ({ children }) => {
 
-    const [isLogin, setIsLogin] = useState(false)
+    const [isUserLogedin, setIsUserLogedin] = useState(false)
 
-    value = {
-        isLogin, setIsLogin,
+    const value = {
+        isUserLogedin, setIsUserLogedin,
     }
+
     return (
         <AppContext.Provider value={value}>
             {children}
