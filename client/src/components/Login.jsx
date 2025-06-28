@@ -8,38 +8,35 @@ const Login = () => {
 
     const { isUserLogedin, setIsUserLogedin, setUserData, backendUrl } = useContext(AppContext)
     const [loginState, setLoginState] = useState("signin")
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [name, setName] = useState("test")
+    const [email, setEmail] = useState("test@gmail.com")
+    const [password, setPassword] = useState("12345")
     const navigate = useNavigate()
 
-    const registerUser = async () => {
+    const registerUser = async (e) => {
+        e.preventDefault();
+
         try {
+            console.log(name, email, password);
+
 
             if (!name || !email || !password) {
                 return toast.error('All fields are required')
             }
 
-            const registerUserData = {
-                name,
-                email,
-                password
-            }
-
-            const { data } = await axios.post(`${backendUrl}/api/user/register`, { registerUserData })
+            const { data } = await axios.post(`${backendUrl}/api/users/register`, { name, email, password })
 
             if (data.success) {
-                toast.success("User registered successfully!")
+                toast.success(data.message)
                 setLoginState('signin')
                 setIsUserLogedin(true)
                 setUserData(data.user)
                 navigate('/')
             }
-            else {
-                toast.error(data.message)
-            }
+
         } catch (error) {
-            toast.error(error.message)
+            const errMsg = error.response?.data?.message || error.message
+            toast.error(errMsg)
         }
     }
 
@@ -61,9 +58,9 @@ const Login = () => {
                         <input className='w-full mt-1 py-2 px-4 border-1 border-gray-200 rounded-lg outline-0 shadow' id='password' type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)} value={password} />
                     </div>
                     {loginState === 'signin' ?
-                        <button className='w-[130px] block py-2 px-4 m-auto mt-6 mb-4 bg-blue-400 text-white rounded-xl cursor-pointer hover:bg-blue-500 shadow' type='submit' >Login</button>
+                        <button className='w-[130px] block py-2 px-4 m-auto mt-6 mb-4 bg-blue-400 text-white rounded-xl cursor-pointer hover:bg-blue-500 shadow' >Login</button>
                         :
-                        <button className='w-[130px] block py-2 px-4 m-auto mt-6 mb-4 bg-blue-400 text-white rounded-xl cursor-pointer hover:bg-blue-500 shadow' type='submit' onClick={registerUser}>Register</button>
+                        <button className='w-[130px] block py-2 px-4 m-auto mt-6 mb-4 bg-blue-400 text-white rounded-xl cursor-pointer hover:bg-blue-500 shadow' onClick={registerUser}>Register</button>
                     }
                     <div className='mb-6'>
                         {loginState === 'register' && <p className='text-center'>Already have an account? <span><a href='#' className='text-blue-600 ' onClick={() => setLoginState('signin')}>Sign In</a></span></p>}
