@@ -4,6 +4,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { AppContext } from '../context/AppContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import Loader from './Loader';
 
 const ListProduct = () => {
 
@@ -87,15 +88,15 @@ const ListProduct = () => {
     return (
         <div className='max-w-[900px] p-6 bg-white rounded m-auto mt-[50px] shadow'>
             <h2 className='text-xl font-semibold mb-5'>Products List</h2>
-            <div className='overflow-x-auto'>
-                <table className='min-w-full text-left'>
+            <div className='overflow-auto'>
+                <table className='min-w-[600px] md:min-w-full text-left'>
                     <thead className=''>
                         <tr className=''>
                             <th className='py-2'>No.</th>
                             <th className='py-2'>Name</th>
                             <th className='py-2'>Qty</th>
                             <th className='py-2'>Price (1 Qty)</th>
-                            <th className='py-2'>Ations</th>
+                            <th className='py-2'>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -123,8 +124,8 @@ const ListProduct = () => {
 
             {/* popup modal */}
             {isEdit && (<div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
-                <div className=' px-4 py-2 bg-white shadow overflow-x-hidden rounded'>
-                    <form className='flex items-center justify-between gap-5 pb-4' >
+                <div className='min-w-[300px] md:min-w-auto  px-4 py-2 bg-white shadow  rounded'>
+                    <form className='flex flex-col md:flex-row items-center justify-between gap-5 pb-4' >
                         <div className='flex flex-col'>
                             <label htmlFor="item-name">Product Name</label>
                             <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-name' type="text" placeholder='Item' onChange={(e) => setName(e.target.value)} value={name} />
@@ -137,7 +138,7 @@ const ListProduct = () => {
                             <label htmlFor="item-price">Price (1 Qty)</label>
                             <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-price' type="number" placeholder='0' onChange={(e) => setPrice(e.target.value)} value={price} />
                         </div>
-                        <div className='flex gap-2 self-end'>
+                        <div className='flex gap-2 md:self-end'>
                             <button className='py-2 px-6 button-gradient text-white rounded cursor-pointer shadow' onClick={updateHandler}>update</button>
                             <button className='py-2 px-6 cancel-gradient text-white rounded cursor-pointer shadow' type='submit' onClick={() => setIsEdit(false)}>Cancel</button>
                         </div>
@@ -145,7 +146,6 @@ const ListProduct = () => {
                 </div>
             </div>)}
         </div>
-
     )
 }
 

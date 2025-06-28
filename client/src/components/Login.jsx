@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import backgroundImg from '../assets/background-2.jpg'
+import logo from '../assets/logo.jpg'
 
 const Login = () => {
 
@@ -65,8 +66,19 @@ const Login = () => {
     }
 
     return (
-        <div className='w-full min-h-screen flex items-center justify-center bg-gray-100 bg-center bg-cover' style={{ backgroundImage: `URL(${backgroundImg})` }}>
+        <div className='w-full min-h-screen flex items-center justify-center   bg-gray-100 bg-center bg-cover' style={{ backgroundImage: `URL(${backgroundImg})` }}>
+            {/* form */}
             <div className='w-[320px] p-6 rounded-xl bg-white shadow-lg'>
+                {/* logo */}
+                <div className='flex flex-col items-center justify-center gap-2 p-1'>
+                    <img className='w-[40px] h-[40px] rounded-full' src={logo} alt="" />
+                    <div>
+                        <h1 className='text-[15pxpx] text-center font-bold text-gradient'>Future Code Technologies</h1>
+                        <p className='text-[10px] text-center -mt-1 text-blue-950'>Transforming Ideas into Scalable Software</p>
+                    </div>
+                </div>
+
+                {/* form */}
                 <h3 className='py-6 text-center font-bold text-2xl text-gradient'>{loginState === 'signin' ? 'Sign In' : 'Register'}</h3>
                 <form>
                     {loginState === 'register' && <div className='flex flex-col my-2'>
@@ -91,7 +103,7 @@ const Login = () => {
                         {loginState === 'signin' && <p className='text-center text-gray-700'>Don't have an account? <span><a href='#' className='text-blue-600 ' onClick={() => setLoginState('register')}>Register Now</a></span></p>}
                     </div>
                 </form >
-            </div >
+            </div>
         </div >
     )
 }

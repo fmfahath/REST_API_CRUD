@@ -35,7 +35,7 @@ const AddProduct = () => {
     return (
         <div className='max-w-[900px]  p-6 bg-white rounded m-auto mt-[50px] shadow'>
             <h2 className='text-xl font-semibold mb-5'>Add Product</h2>
-            <form className='flex items-center justify-between gap-2 pb-5' onSubmit={submitHandler}>
+            <form className='flex flex-col md:flex-row justify-end md:justify-center gap-4 pb-5' onSubmit={submitHandler}>
                 <div className='flex flex-col'>
                     <label htmlFor="item-name">Product Name</label>
                     <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-name' type="text" placeholder='Item' onChange={(e) => setName(e.target.value)} value={name} />
@@ -48,7 +48,7 @@ const AddProduct = () => {
                     <label htmlFor="item-price">Price (1 Qty)</label>
                     <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-price' type="number" placeholder='0' onChange={(e) => setPrice(e.target.value)} value={price} />
                 </div>
-                <button className='self-end py-2 px-6  text-white rounded cursor-pointer button-gradient shadow' type='submit' >Add</button>
+                <button className='mt-2 md:mt-0 md:self-end py-2 px-6  text-white rounded cursor-pointer button-gradient shadow' type='submit' >Add</button>
             </form>
         </div>
     )
