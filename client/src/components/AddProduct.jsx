@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import { AppContext } from '../context/AppContext'
 
 const AddProduct = () => {
-    const { backendUrl } = useContext(AppContext)
+    const { backendUrl, fetchProducts } = useContext(AppContext)
     const [name, setName] = useState("")
     const [price, setPrice] = useState(0)
     const [quantity, setQuantity] = useState(0)
@@ -21,6 +21,7 @@ const AddProduct = () => {
 
             if (data.success) {
                 toast.success(data.message)
+                fetchProducts()
                 setName("")
                 setPrice(0)
                 setQuantity(0)

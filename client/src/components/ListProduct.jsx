@@ -1,14 +1,21 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { sampleProducts } from '../assets/sample_data_set'
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { AppContext } from '../context/AppContext';
 
 const ListProduct = () => {
 
+    const { products, fetchProducts, backendUrl } = useContext(AppContext)
     const [isEdit, setIsEdit] = useState(false)
 
     const submitHandler = async (e) => {
 
     }
+
+    //get all products
+    useEffect(() => {
+        fetchProducts()
+    }, [])
 
     return (
         <div className='w-[80%] p-6 bg-white rounded m-auto mt-[50px] shadow'>
@@ -25,11 +32,11 @@ const ListProduct = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {sampleProducts.map((product, index) => (
+                        {products.map((product, index) => (
                             <tr key={index} className='hover:bg-gray-50'>
                                 <td className='py-2 border-b border-gray-100'>{index + 1}</td>
                                 <td className='py-2 border-b border-gray-100'>{product.name}</td>
-                                <td className='py-2 border-b border-gray-100'>{product.qty}</td>
+                                <td className='py-2 border-b border-gray-100'>{product.quantity}</td>
                                 <td className='py-2 border-b border-gray-100'>{product.price}</td>
                                 <td className='py-2 border-b border-gray-100'>
                                     <div className='flex gap-4'>

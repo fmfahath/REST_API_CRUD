@@ -12,13 +12,13 @@ export const AppContextProvider = ({ children }) => {
     const [products, setProducts] = useState([])
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-
+    //get all products details
     const fetchProducts = async () => {
         try {
             const { data } = await axios.get(`${backendUrl}/api/products/`)
 
             if (data.success) {
-                setProducts(data.products)
+                setProducts(data.products.reverse())
             }
         } catch (error) {
             const errMsg = error.response?.data?.message || error.message
