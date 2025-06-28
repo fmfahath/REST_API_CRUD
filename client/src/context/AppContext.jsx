@@ -19,6 +19,10 @@ export const AppContextProvider = ({ children }) => {
         backendUrl,
     }
 
+    console.log("isUserLogedin: ", isUserLogedin);
+    console.log("userData: ", userData);
+
+
     return (
         <AppContext.Provider value={value}>
             {children}
