@@ -13,6 +13,7 @@ const ListProduct = () => {
     const [price, setPrice] = useState(0)
     const [quantity, setQuantity] = useState(0)
 
+    //edit button
     const editHandler = async (id) => {
         setIsEdit(true)
 
@@ -27,6 +28,25 @@ const ListProduct = () => {
                 setName(data.product.name)
                 setQuantity(data.product.quantity)
                 setPrice(data.product.price)
+            }
+        } catch (error) {
+            const errMsg = error.response?.data?.message || error.message
+            toast.error(errMsg)
+        }
+    }
+
+    //delete button
+    const deleteHandler = async (id) => {
+        try {
+            if (!id) {
+                return toast.error('product ID missing or invalid')
+            }
+
+            const { data } = await axios.delete(`${backendUrl}/api/products/delete-product/${id}`)
+
+            if (data.success) {
+                fetchProducts()
+                toast.success(data.message)
             }
         } catch (error) {
             const errMsg = error.response?.data?.message || error.message
@@ -68,7 +88,7 @@ const ListProduct = () => {
                                             <FaEdit className='w-5 h-5 text-blue-500' onClick={() => editHandler(product._id)} />
                                         </button>
                                         <button className='flex gap-1 items-center cursor-pointer'>
-                                            <FaTrash className='w-4 h-4 text-red-600' />
+                                            <FaTrash className='w-4 h-4 text-red-600' onClick={() => deleteHandler(product._id)} />
                                         </button>
                                     </div>
                                 </td>
