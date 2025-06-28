@@ -6,7 +6,7 @@ import { AppContext } from '../context/AppContext'
 const Protectedroutes = ({ children }) => {
     const { isUserLogedin, userData } = useContext(AppContext)
 
-    if (!isUserLogedin) {
+    if (!isUserLogedin || !userData) {
         return <Navigate to={'/login'} replace />
     }
 
