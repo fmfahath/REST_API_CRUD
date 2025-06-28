@@ -12,6 +12,7 @@ const ListProduct = () => {
     const [name, setName] = useState("")
     const [price, setPrice] = useState(0)
     const [quantity, setQuantity] = useState(0)
+    const [productId, setProductId] = useState("")
 
     //edit button
     const editHandler = async (id) => {
@@ -28,6 +29,7 @@ const ListProduct = () => {
                 setName(data.product.name)
                 setQuantity(data.product.quantity)
                 setPrice(data.product.price)
+                setProductId(data.product._id)
             }
         } catch (error) {
             const errMsg = error.response?.data?.message || error.message
@@ -54,7 +56,28 @@ const ListProduct = () => {
         }
     }
 
+    //update button
+    const updateHandler = async (e) => {
+        e.preventDefault();
 
+        try {
+            if (!productId) {
+                return toast.error('product ID missing or Invalid')
+            }
+
+            const { data } = await axios.put(`${backendUrl}/api/products/update-product/${productId}`, { name, price, quantity })
+
+            if (data.success) {
+                fetchProducts()
+                toast.success(data.message)
+                setProductId("")
+                setIsEdit(false)
+            }
+        } catch (error) {
+            const errMsg = error.response?.data?.message || error.message
+            toast.error(errMsg)
+        }
+    }
 
     //get all products
     useEffect(() => {
@@ -115,7 +138,7 @@ const ListProduct = () => {
                             <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-price' type="number" placeholder='0' onChange={(e) => setPrice(e.target.value)} value={price} />
                         </div>
                         <div className='flex gap-2 self-end'>
-                            <button className='py-2 px-6 bg-green-400 text-white rounded cursor-pointer hover:bg-green-500 shadow' type='submit' >update</button>
+                            <button className='py-2 px-6 bg-green-400 text-white rounded cursor-pointer hover:bg-green-500 shadow' onClick={updateHandler}>update</button>
                             <button className='py-2 px-6 bg-red-600 text-white rounded cursor-pointer hover:bg-red-700 shadow' type='submit' onClick={() => setIsEdit(false)}>Cancel</button>
                         </div>
                     </form>
