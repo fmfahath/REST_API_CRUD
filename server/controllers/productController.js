@@ -20,14 +20,14 @@ export const registerProduct = async (req, res) => {
         });
 
         res.status(201).json({
-            sucess: true,
-            message: "Product registered successfully",
+            success: true,
+            message: "Product added successfully",
             product: newProduct
         });
     } catch (error) {
         res.status(500).json({
             sucess: false,
-            message: "Product registration failed",
+            message: "Failed to add product",
             error: error.message
         })
     }

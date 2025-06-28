@@ -1,22 +1,34 @@
-import React, { useState } from 'react'
+import axios from 'axios'
+import React, { useContext, useState } from 'react'
+import { toast } from 'react-toastify'
+import { AppContext } from '../context/AppContext'
 
 const AddProduct = () => {
-
+    const { backendUrl } = useContext(AppContext)
     const [name, setName] = useState("")
     const [price, setPrice] = useState(0)
-    const [qty, setQty] = useState(0)
+    const [quantity, setQuantity] = useState(0)
 
     const submitHandler = async (e) => {
         e.preventDefault()
 
-        const productData = {
-            name,
-            price,
-            qty
+        try {
+            if (!name || !price || !quantity) {
+                return toast.error('All fields are required')
+            }
+
+            const { data } = await axios.post(`${backendUrl}/api/products/register`, { name, price, quantity })
+
+            if (data.success) {
+                toast.success(data.message)
+                setName("")
+                setPrice(0)
+                setQuantity(0)
+            }
+        } catch (error) {
+            const errMsg = error.response?.data?.message || error.message
+            toast.error(errMsg)
         }
-
-        console.log("product Data: ", productData);
-
     }
 
     return (
@@ -29,7 +41,7 @@ const AddProduct = () => {
                 </div>
                 <div className='flex flex-col'>
                     <label htmlFor="item-qty">Quantity</label>
-                    <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-qty' type="number" placeholder='0' onChange={(e) => setQty(e.target.value)} value={qty} />
+                    <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-qty' type="number" placeholder='0' onChange={(e) => setQuantity(e.target.value)} value={quantity} />
                 </div>
                 <div className='flex flex-col'>
                     <label htmlFor="item-price">Price (1 Qty)</label>
