@@ -4,7 +4,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 
 const ListProduct = () => {
 
-    const [isEdit, setIsEdit] = useState(true)
+    const [isEdit, setIsEdit] = useState(false)
 
     const submitHandler = async (e) => {
 
@@ -47,7 +47,7 @@ const ListProduct = () => {
                 </table>
             </div>
 
-            {/* popu modal */}
+            {/* popup modal */}
             {isEdit && (<div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
                 <div className=' px-4 py-2 bg-white shadow overflow-x-hidden rounded'>
                     <form className='flex items-center justify-between gap-5 pb-4' >
