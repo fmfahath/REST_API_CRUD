@@ -45,7 +45,7 @@ const Login = () => {
         e.preventDefault(0)
 
         try {
-            if (!name || !password) {
+            if (!email || !password) {
                 return toast.error('All fields are required')
             }
 
