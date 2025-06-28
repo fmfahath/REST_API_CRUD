@@ -2,15 +2,39 @@ import React, { useContext, useEffect, useState } from 'react'
 import { sampleProducts } from '../assets/sample_data_set'
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { AppContext } from '../context/AppContext';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const ListProduct = () => {
 
     const { products, fetchProducts, backendUrl } = useContext(AppContext)
     const [isEdit, setIsEdit] = useState(false)
+    const [name, setName] = useState("")
+    const [price, setPrice] = useState(0)
+    const [quantity, setQuantity] = useState(0)
 
-    const submitHandler = async (e) => {
+    const editHandler = async (id) => {
+        setIsEdit(true)
 
+        try {
+            if (!id) {
+                return toast.error('product ID missing or invalid')
+            }
+
+            const { data } = await axios.get(`${backendUrl}/api/products/${id}`)
+
+            if (data.success) {
+                setName(data.product.name)
+                setQuantity(data.product.quantity)
+                setPrice(data.product.price)
+            }
+        } catch (error) {
+            const errMsg = error.response?.data?.message || error.message
+            toast.error(errMsg)
+        }
     }
+
+
 
     //get all products
     useEffect(() => {
@@ -41,7 +65,7 @@ const ListProduct = () => {
                                 <td className='py-2 border-b border-gray-100'>
                                     <div className='flex gap-4'>
                                         <button className='flex gap-1 items-center cursor-pointer'>
-                                            <FaEdit className='w-5 h-5 text-blue-500' onClick={() => setIsEdit(true)} />
+                                            <FaEdit className='w-5 h-5 text-blue-500' onClick={() => editHandler(product._id)} />
                                         </button>
                                         <button className='flex gap-1 items-center cursor-pointer'>
                                             <FaTrash className='w-4 h-4 text-red-600' />
@@ -60,15 +84,15 @@ const ListProduct = () => {
                     <form className='flex items-center justify-between gap-5 pb-4' >
                         <div className='flex flex-col'>
                             <label htmlFor="item-name">Product Name</label>
-                            <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-name' type="text" placeholder='Item' />
+                            <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-name' type="text" placeholder='Item' onChange={(e) => setName(e.target.value)} value={name} />
                         </div>
                         <div className='flex flex-col'>
                             <label htmlFor="item-qty">Quantity</label>
-                            <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-qty' type="number" placeholder='0' />
+                            <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-qty' type="number" placeholder='0' onChange={(e) => setQuantity(e.target.value)} value={quantity} />
                         </div>
                         <div className='flex flex-col'>
                             <label htmlFor="item-price">Price (1 Qty)</label>
-                            <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-price' type="number" placeholder='0' />
+                            <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-price' type="number" placeholder='0' onChange={(e) => setPrice(e.target.value)} value={price} />
                         </div>
                         <div className='flex gap-2 self-end'>
                             <button className='py-2 px-6 bg-green-400 text-white rounded cursor-pointer hover:bg-green-500 shadow' type='submit' >update</button>
