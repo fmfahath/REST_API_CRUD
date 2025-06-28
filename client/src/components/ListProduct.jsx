@@ -85,7 +85,7 @@ const ListProduct = () => {
     }, [])
 
     return (
-        <div className='w-[80%] p-6 bg-white rounded m-auto mt-[50px] shadow'>
+        <div className='max-w-[900px] p-6 bg-white rounded m-auto mt-[50px] shadow'>
             <h2 className='text-xl font-semibold mb-5'>Products List</h2>
             <div className='overflow-x-auto'>
                 <table className='min-w-full text-left'>
@@ -138,8 +138,8 @@ const ListProduct = () => {
                             <input className='py-2 px-4 border-1 border-gray-200 rounded-lg outline-0' id='item-price' type="number" placeholder='0' onChange={(e) => setPrice(e.target.value)} value={price} />
                         </div>
                         <div className='flex gap-2 self-end'>
-                            <button className='py-2 px-6 bg-green-400 text-white rounded cursor-pointer hover:bg-green-500 shadow' onClick={updateHandler}>update</button>
-                            <button className='py-2 px-6 bg-red-600 text-white rounded cursor-pointer hover:bg-red-700 shadow' type='submit' onClick={() => setIsEdit(false)}>Cancel</button>
+                            <button className='py-2 px-6 button-gradient text-white rounded cursor-pointer shadow' onClick={updateHandler}>update</button>
+                            <button className='py-2 px-6 cancel-gradient text-white rounded cursor-pointer shadow' type='submit' onClick={() => setIsEdit(false)}>Cancel</button>
                         </div>
                     </form>
                 </div>

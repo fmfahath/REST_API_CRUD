@@ -6,7 +6,7 @@ import ListProduct from '../components/ListProduct'
 const Dashboard = () => {
 
     return (
-        <div className='w-full min-h-screen bg-gray-50 pb-10'>
+        <div className='w-full min-h-screen bg-gray-100 pb-10'>
             <Navbar />
             <AddProduct />
             <ListProduct />
