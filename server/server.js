@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from 'cors'
 import connectDB from "./config/db.js";
 import userRouter from "./routes/userRoutes.js";
 import productRouter from "./routes/productRoutes.js";
@@ -10,6 +11,11 @@ dotenv.config();
 
 //connect database
 connectDB()
+
+//allow cors for frontend
+app.use(cors({
+    origin: process.env.FRONTEND_URL
+}));
 
 //middlewares
 app.use(express.json());
